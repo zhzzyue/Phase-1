@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-ofPoint t;
+ofPoint loc;
 ofPoint p0, p1;
 ofFbo fbo;
 float rX, rY, rZ;
@@ -9,7 +9,7 @@ float rX, rY, rZ;
 void ofApp::setup(){
     p0 = ofPoint(-20, 0);
     p1 = ofPoint( 20, 0);
-    t = ofPoint(ofGetWidth()/2, ofGetHeight()/2, 0);
+    loc = ofPoint(ofGetWidth()/2, ofGetHeight()/2, 0);
     
     fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA32F);
     
@@ -34,7 +34,7 @@ void ofApp::update(){
     float y = ofMap(ofSignedNoise(time * 0.4), -1, 1, 0, ofGetHeight());
     float z = ofMap(ofSignedNoise(time * 0.6), -1, 1, -800, 800);
     
-    t = ofPoint(x, y, z);
+    loc = ofPoint(x, y, z);
 
 
 }
@@ -48,15 +48,16 @@ void ofApp::draw(){
     ofPopStyle();
     
     ofPushMatrix();
-    ofTranslate(t);
+    ofTranslate(loc);
     
     ofRotateX(rX);
     ofRotateY(rY);
     ofRotateZ(rZ);
     
     ofPushStyle();
-    ofSetColor(80, 200, 120);
+    ofSetColor(255);
     ofDrawLine(p0, p1);
+    ofDrawLine(40 , 0 , -40, 0);
     ofPopStyle();
     ofPopMatrix();
     fbo.end();
